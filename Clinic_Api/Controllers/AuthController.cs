@@ -70,7 +70,6 @@ namespace Clinic_Api.Controllers
             }
 
         } 
-        //login
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
@@ -87,7 +86,6 @@ namespace Clinic_Api.Controllers
             return Ok(new { Success = true, Message = "Login successful", data = user });
         }
 
-        //add doctor
         [HttpPost("adddoctor")]
         public async Task<IActionResult> NewDoctor([FromBody] AddDoctorDto addDoctorDto)
         {

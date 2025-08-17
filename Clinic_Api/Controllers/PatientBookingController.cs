@@ -54,7 +54,6 @@ namespace Clinic_Api.Controllers
             });
         
         }
-        //make booking for user
         [HttpPost("NewBookings")]
         public async Task<IActionResult> CreateBooking([FromBody] BookingDto bookingdto)
         {
@@ -108,7 +107,6 @@ namespace Clinic_Api.Controllers
             });
         }
 
-        //get the booking by id
         [HttpGet("booking/{id}")]
         public async Task<IActionResult> GetBookingById(int id)
         {
