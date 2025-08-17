@@ -4,6 +4,6 @@
     {
         public string Specialization { get; set; }
         public string? Description { get; set; }
-        public List<Booking>? Bookings { get; set; } = new List<Booking>();
+        public ICollection<Booking>? Bookings { get; set; } 
     }
 }

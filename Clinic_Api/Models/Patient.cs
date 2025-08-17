@@ -4,6 +4,6 @@
     {
         public DateOnly? Birthdate { get; set; }
         public string? MedicalRecord { get; set; }
-        public List<Booking> ?Bookings { get; set; } = new List<Booking>();
+        public ICollection<Booking> ?Bookings { get; set; } 
     }
 }

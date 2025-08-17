@@ -87,6 +87,62 @@ namespace Clinic_Api.Controllers
             return Ok(new { Success = true, Message = "Login successful", data = user });
         }
 
+        //add doctor
+        [HttpPost("adddoctor")]
+        public async Task<IActionResult> NewDoctor([FromBody] AddDoctorDto addDoctorDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var existingUser = await _context.Doctors
+               .FirstOrDefaultAsync(p => p.Email == addDoctorDto.Email);
+
+            if (existingUser != null)
+            {
+                return Conflict(new
+                {
+                    Success = false,
+                    Message = "User with this email already exists"
+                });
+            }
+            var doctor = new Doctor
+            {
+                Name = addDoctorDto.Name,
+                Email = addDoctorDto.Email,
+                Password = addDoctorDto.Password,
+                Phone = addDoctorDto.Phone,
+                Gender = addDoctorDto.Gender,
+                Specialization = addDoctorDto.Specialization
+            };
+            try
+            {
+                _context.Users.Add(doctor);
+                await _context.SaveChangesAsync();
+                return Ok(new
+                {
+                    Success = true,
+                    Message = "User registered successfully",
+                    Data = new
+                    {
+                        Id = doctor.Id,
+                        Name = doctor.Name,
+                        Email = doctor.Email,
+                        Phone = doctor.Phone,
+                        Gender = doctor.Gender,
+                        Role = "Doctor",
+                        Specialization = doctor.Specialization,
+                        Bookings = new List<object>()
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while Adding the Doctor");
+            }
+
+        }
     }
 
 }
