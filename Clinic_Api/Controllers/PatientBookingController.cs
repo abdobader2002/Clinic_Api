@@ -40,8 +40,8 @@ namespace Clinic_Api.Controllers
                 b.Notes,
                 Doctor = new
                 {
-                    b.Doctor.Id,
-                    b.Doctor.Name
+                    b.Doctor.Name,
+                    b.Doctor.Specialization
                 },
 
                 Status = b.Status.ToString(),
@@ -95,7 +95,16 @@ namespace Clinic_Api.Controllers
             {
                 Success = true,
                 Message = "Booking created successfully",
-                Data = booking
+                Data = new
+                {
+                    booking.Id,
+                    booking.DoctorId,
+                    booking.PatientId,
+                    booking.BookingDate,
+                    booking.BookingTime,
+                    booking.Notes,
+                    Status = booking.Status.ToString(),
+                }
             });
         }
 
